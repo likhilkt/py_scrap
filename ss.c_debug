@@ -1,0 +1,75 @@
+#include <unistd.h>
+#define FSTART() {printf("\n[PID = %d] Entering : [%s] at [%s:%d]",getpid(),__func__,__FILE__, __LINE__);} 
+#define FEND() {printf("\n[PID = %d] Leaving : [%s] at [%s:%d]",getpid(),__func__,__FILE__, __LINE__);} 
+ #include <iostream>
+using namespace std;
+
+class Shape {
+   protected:
+      int width, height;
+
+   public:
+      Shape( int a = 0, int b = 0){
+         width = a;
+         height = b;
+      }
+      int area() {
+FSTART();
+
+         cout << "Parent class area :" <<endl;
+         FEND();return 0;
+      }
+};
+class Rectangle:public Shape {
+   public:
+      Rectangle( int a = 0, int b = 0):Shape(a, b) { }
+
+      int area () {
+FSTART();
+
+         cout << "Rectangle class area :" <<endl;
+         FEND();return (width * height);
+      
+FEND();
+}
+};
+
+class Triangle:public Shape {
+   public:
+      Triangle( int a = 0, int b = 0):Shape(a, b) { }
+
+      int area ();
+};
+
+ int Triangle::area (){
+FSTART();
+
+         cout << "Triangle class area :" <<endl;
+         FEND();return (width * height / 2);
+      
+FEND();
+}
+
+
+// Main function for the program
+int main() {
+FSTART();
+
+   Shape *shape;
+   Rectangle rec(10,7);
+   Triangle  tri(10,5);
+
+   // store the address of Rectangle
+   shape = &rec;
+
+   // call rectangle area.
+   shape->area();
+
+   // store the address of Triangle
+   shape = &tri;
+
+   // call triangle area.
+   shape->area();
+
+   FEND();return 0;
+}
